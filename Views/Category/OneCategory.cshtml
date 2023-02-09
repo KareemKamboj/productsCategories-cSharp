@@ -1,0 +1,42 @@
+@model Category
+
+<h2>@Model.Name</h2>
+
+<div>
+    <h3>Products</h3>
+    @foreach (var product in Model.ProductCategories)
+    {
+        <p>@product.Product.Name</p>
+    }
+</div>
+
+ <form class="shadow p-3 rounded" asp-controller=Category asp-action=Relation
+            asp-route-categoryId="@Model.CategoryId" method="POST">
+
+            <div class="mb-3">
+                <select class="form-control" name=ProductId>
+                    @foreach (Product c in ViewBag.allProducts)
+                    {
+                        List<int> catId = new List<int>();
+                        @foreach (ProductCategory pc in Model.ProductCategories)
+                        {
+                            catId.Add(pc.ProductId);
+                        }
+                        if (!catId.Contains(c.ProductId))
+                        {
+                            <option value=@c.ProductId>@c.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div>
+                <input hidden value=@Model.CategoryId name="ProductId">
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary w-25">Add</button>
+            </div>
+
+        </form>
+ </div>

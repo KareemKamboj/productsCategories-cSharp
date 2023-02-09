@@ -1,0 +1,11 @@
+@model List<Product>
+
+    <div>
+        <h2>All Products</h2>
+    @foreach (Product product in  @ViewBag.allProducts)
+    {
+        <ul>
+        <li><a href="/products/@product.ProductId">@product.Name</a></li>
+        </ul>
+    }
+    </div>
